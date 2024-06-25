@@ -1,5 +1,4 @@
 data/*
-app/core/migrations/00*
 app/__pycache__/*
 app/*/__pycache__/*
 app/*/*/__pycache__/
