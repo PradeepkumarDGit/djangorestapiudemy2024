@@ -13,12 +13,17 @@ services:
       - db_data:/var/lib/mysql
 
   app:
-    build: .
+    build:
+      context: .
+      args:
+        - DEV=true
     command: >
-      sh -c "python manage.py migrate &&
-              python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/code
+      - ./app:/app
     ports:
       - "8000:8000"
     depends_on:
